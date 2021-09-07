@@ -1,11 +1,92 @@
 * {
   box-sizing: border-box;
 }
+
+html {
+  padding: 0;
+  margin: 0;
+  /* height: calc(100vh - 15.625 - 37.5 - 9.375); */
+  height: 100%;
+}
+
 .body-main {
+  top: 10%;
   align-items: center;
   justify-items: center;
-  height: 800px;
+  height: 950px;
   display: grid;
-  grid-template-columns: repeat(1, 100%);
-  grid-template-rows: 20% 60% 20%;
+  grid-template-columns: 100%;
+  grid-template-rows: 25% 60% auto;
+}
+
+.header-container {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  color: red;
+  font-size: 1.5rem;
+  width: 100%;
+}
+
+.nav-container {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.nav-container h1 {
+  margin: 0;
+}
+
+.splash-container {
+  background: url("../img/jordan-splash.jpg");
+  background-size: 787px 250px;
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.main-container {
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.main-container h1 {
+  position: absolute;
+  font-weight: 600;
+  margin: 0;
+  top: 1.5rem;
+  left: 1.5rem;
+}
+
+.shoe-card__container {
+  position: absolute;
+  top: 5rem;
+  left: 1.5rem;
+  width: 100%;
+}
+
+.shoe-card__items {
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  grid-template-rows: repeat(3, 30%);
+}
+
+.footer-container {
+  position: relative;
+  display: flex;
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+}
+
+.footer-container h1 {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  color: red;
+  font-size: 1.5rem;
 }

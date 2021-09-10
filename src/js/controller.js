@@ -1,34 +1,28 @@
-const shoeCardItem = document.querySelector(".shoe-card__item");
+import * as model from "./model.js";
+import ShoesView from "./views/shoesView.js";
 
-// const request = new XMLHttpRequest();
-// request.open("GET", "https://restcountries.eu/rest/v2/name/portugal");
-// request.send();
-// console.log(request.responseText);
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+import { async } from "regenerator-runtime";
 
-// request.addEventListener("load", function () {
-//   console.log(this.responseText);
-// });
+const arrowUp = document.querySelector(".arrow-up");
+const rootElement = document.documentElement;
 
-const getObj = async function () {
-  try {
-    // const request = await fetch(
-    //   "https://the-sneaker-database.p.rapidapi.com/sneakers?limit=10",
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "x-rapidapi-host": "the-sneaker-database.p.rapidapi.com",
-    //       "x-rapidapi-key": "617301673dmsh04fb709ab7b7f74p1c2ff5jsnde2330604c58",
-    //     },
-    //   }
-    // );
+arrowUp.addEventListener("click", function () {
+  rootElement.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});
 
-    if (!request.ok) throw new Error(`Issue getting shoes`);
-    // console.log(request);
-    // const data = await request.json();
-    // console.log(data);
-  } catch (err) {
-    console.error(`${err} !!!`);
-  }
+const showShoes = async function () {
+  // 1) Loading shoe
+  await model.loadShoes(100);
+
+  // 2) Rendering Shoe
+  model.state.shoes.map((shoe) => {
+    ShoesView.render(shoe);
+  });
 };
 
-getObj();
+showShoes();

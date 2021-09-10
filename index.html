@@ -16,24 +16,57 @@
 
     <title>Hello, world!</title>
   </head>
-  <body class="body-main">
+  <body class="body-container">
     <header class="header-container">
       <nav class="nav-container">
         <h1>SneakerHead</h1>
       </nav>
     </header>
-    <div class="splash-container"></div>
+    <div id="top" class="splash-container"></div>
+    <div class="shoe-container">
+      <div class="shoe-container__selected"></div>
+    </div>
     <main class="main-container">
-      <h1>Jordans</h1>
+      <div class="filter-container">
+        <h1>Jordans</h1>
+        <!-- <form class="filter-form">
+          <label for="year">Year</label>
+          <input type="text" id="year" name="year" />
+        </form> -->
+      </div>
       <div class="shoe-card__container">
         <div class="shoe-card__items">
           <div class="shoe-card__item">
-            <h2>img holder</h2>
-            <p>descriptiong holder</p>
+            <h4 class="shoe-card__item-title">Jordan 1 "Blues"</h4>
+            <h6 class="shoe-card__item-price">$140</h6>
+            <img
+              src="./src/img/jordan_blue.jpg"
+              alt="Jordan shoe"
+              width="310"
+              height="250"
+            />
+            <h6 class="shoe-card__item-est-price">Est. Market Value</h6>
           </div>
         </div>
       </div>
     </main>
+    <div class="arrow-container">
+      <button class="arrow-up" goTo="top">
+        <svg
+          xmlns="http://www.w3.org/3100/svg"
+          width="24"
+          height="24"
+          fill="currentColor"
+          class="bi bi-arrow-up"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
+          />
+        </svg>
+      </button>
+    </div>
     <footer class="footer-container">
       <h1>SneakerHead</h1>
     </footer>
@@ -42,6 +75,6 @@
       integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
       crossorigin="anonymous"
     ></script>
-    <script src="./src/js/controller.js"></script>
+    <script src="./src/js/controller.js" type="module"></script>
   </body>
 </html>

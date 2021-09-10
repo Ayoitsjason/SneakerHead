@@ -5,18 +5,16 @@
 html {
   padding: 0;
   margin: 0;
-  /* height: calc(100vh - 15.625 - 37.5 - 9.375); */
   height: 100%;
+  width: 100%;
 }
 
-.body-main {
+.body-container {
   top: 10%;
   align-items: center;
   justify-items: center;
-  height: 950px;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 25% 60% auto;
+  height: 100%;
+  width: 100%;
 }
 
 .header-container {
@@ -39,48 +37,123 @@ html {
 
 .splash-container {
   background: url("jordan-splash.52fc22ab.jpg");
-  background-size: 787px 250px;
+  background-size: 100% 250px;
+  background-repeat: no-repeat;
   display: flex;
   position: relative;
-  height: 100%;
+  height: 25%;
   width: 100%;
+}
+
+.shoe-container {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 75%;
+  border: 1px solid red;
+  border-radius: 4px;
+  background-color: white;
+  z-index: 3;
 }
 
 .main-container {
   display: flex;
   position: relative;
-  height: 100%;
   width: 100%;
+  min-height: 50%;
 }
 
-.main-container h1 {
+.filter-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 100%;
   position: absolute;
+}
+
+.filter-container h1 {
   font-weight: 600;
-  margin: 0;
-  top: 1.5rem;
-  left: 1.5rem;
+  margin: 1.5rem auto 0 2rem;
+  grid-column: 1/2;
+}
+
+.filter-form {
+  margin-top: 1.5rem;
+  grid-column: 2/3;
 }
 
 .shoe-card__container {
-  position: absolute;
-  top: 5rem;
-  left: 1.5rem;
-  width: 100%;
+  min-height: inherit;
+  padding: 5rem 1rem;
+  display: flex;
+  min-width: 100%;
 }
 
 .shoe-card__items {
-  display: grid;
-  grid-template-columns: repeat(3, 30%);
-  grid-template-rows: repeat(3, 30%);
+  min-height: inherit;
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto auto;
+}
+
+.shoe-card__item {
+  border-bottom: 0.25px solid grey;
+  padding: 0.5rem 5rem 5rem 0.5rem;
+  margin: 2rem auto;
+  max-width: 25rem;
+  min-height: 26rem;
+}
+
+.shoe-card__item-title {
+  height: 5rem;
+}
+
+.shoe-card__item-price {
+  margin: 0.5rem 0 1rem 0;
+}
+
+.shoe-card__item-est-price {
+  margin-top: 1rem;
+}
+
+@media (min-width: 43rem) {
+  .shoe-card__items {
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+  }
+}
+
+.shoe-card__item:hover {
+  box-shadow: 0px 0px 1px 0.01px gray;
+  cursor: pointer;
+}
+
+.arrow-container {
+  position: fixed;
+  z-index: 1;
+  bottom: 3%;
+  left: 48%;
+}
+
+.arrow-up {
+  opacity: 0.5;
+  background-color: darkgrey;
+  border-radius: 4px;
 }
 
 .footer-container {
   position: relative;
   display: flex;
   background-color: black;
-  height: 100%;
+  height: 25%;
   width: 100%;
   bottom: 0;
+  z-index: 2;
 }
 
 .footer-container h1 {

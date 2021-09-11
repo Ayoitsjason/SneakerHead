@@ -4,7 +4,6 @@ class ShoesView {
 
   render(data) {
     this._data = data;
-    console.log(this._data);
     const markup = this._generateMarkup();
     this._parent.insertAdjacentHTML("beforeend", markup);
   }
@@ -12,15 +11,23 @@ class ShoesView {
   _generateMarkup() {
     return `
       <div class="shoe-card__item">
-        <h4 class="shoe-card__item-title">${this._data.shoe} "${this._data.name}"</h4>
+        <h4 class="shoe-card__item-title">${this._data.shoe} "${
+      this._data.name
+    }"</h4>
         <h6 class="shoe-card__item-price">$${this._data.retailPrice}</h6>
         <img
-          src="${this._data.media.imageUrl}"
+          src="${
+            this._data.media.imageUrl === null
+              ? "/questionMark.b752a859.png"
+              : this._data.media.imageUrl
+          }"
           alt="Jordan shoe"
           width="310"
           height="250"
         />
-        <h6 class="shoe-card__item-est-price">Est. Market Value: ${this._data.estimatedMarketValue}</h6>
+        <h6 class="shoe-card__item-est-price">Est. Market Value: ${
+          this._data.estimatedMarketValue
+        }</h6>
       </div>
     `;
   }

@@ -12,6 +12,10 @@
       integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
     <link href="./src/css/style.css" rel="stylesheet" />
 
     <title>Hello, world!</title>
@@ -29,14 +33,16 @@
     <main class="main-container">
       <div class="filter-container">
         <h1>Jordans</h1>
-        <!-- <form class="filter-form">
-          <label for="year">Year</label>
-          <input type="text" id="year" name="year" />
-        </form> -->
+        <form class="filter-form">
+          <input type="text" id="year" name="year" placeholder="Year" />
+          <button type="button" class="btn btn-primary btn-filter">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
       </div>
       <div class="shoe-card__container">
         <div class="shoe-card__items">
-          <div class="shoe-card__item">
+          <!-- <div class="shoe-card__item">
             <h4 class="shoe-card__item-title">Jordan 1 "Blues"</h4>
             <h6 class="shoe-card__item-price">$140</h6>
             <img
@@ -46,12 +52,12 @@
               height="250"
             />
             <h6 class="shoe-card__item-est-price">Est. Market Value</h6>
-          </div>
+          </div> -->
         </div>
       </div>
     </main>
     <div class="arrow-container">
-      <button class="arrow-up" goTo="top">
+      <button class="btn btn-secondary arrow-up" goTo="top">
         <svg
           xmlns="http://www.w3.org/3100/svg"
           width="24"

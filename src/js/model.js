@@ -23,7 +23,7 @@ export const loadShoe = async function (id) {
     if (!res.ok) throw new Error(`${data.message} {${res.status}}`);
 
     const results = data.results[0];
-    state.shoes = {
+    state.shoe = {
       brand: results.brand,
       colorway: results.colorway,
       estimatedMarketValue: results.estimatedMarketValue,
@@ -48,13 +48,13 @@ export const loadShoe = async function (id) {
 
 export const loadShoes = async function (limit) {
   try {
-    // const res = await fetch(`${API_URL_ALLSHOES}${limit}&brand=jordan`, {
-    //   method: "GET",
-    //   headers: {
-    //     "x-rapidapi-host": "v1-sneakers.p.rapidapi.com",
-    //     "x-rapidapi-key": "617301673dmsh04fb709ab7b7f74p1c2ff5jsnde2330604c58",
-    //   },
-    // });
+    const res = await fetch(`${API_URL_ALLSHOES}${limit}&brand=jordan`, {
+      method: "GET",
+      headers: {
+        "x-rapidapi-host": "v1-sneakers.p.rapidapi.com",
+        "x-rapidapi-key": "617301673dmsh04fb709ab7b7f74p1c2ff5jsnde2330604c58",
+      },
+    });
     const data = await res.json();
     console.log(data);
     if (!res.ok) throw new Error(`${data.message} {${res.status}}`);
@@ -67,15 +67,19 @@ export const loadShoes = async function (limit) {
   }
 };
 
-export const filterShoesByYear = async function (year) {
+export const filterShoesByYear = async function (year, limit) {
   try {
-    // const res = await fetch(`${API_URL_ALLSHOES}${limit}&releaseYear=${year}&brand=jordan`, {
-    //   method: "GET",
-    //   headers: {
-    //     "x-rapidapi-host": "v1-sneakers.p.rapidapi.com",
-    //     "x-rapidapi-key": "617301673dmsh04fb709ab7b7f74p1c2ff5jsnde2330604c58",
-    //   },
-    // });
+    const res = await fetch(
+      `${API_URL_ALLSHOES}${limit}&releaseYear=${year}&brand=jordan`,
+      {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "v1-sneakers.p.rapidapi.com",
+          "x-rapidapi-key":
+            "617301673dmsh04fb709ab7b7f74p1c2ff5jsnde2330604c58",
+        },
+      }
+    );
     const data = await res.json();
     console.log(data);
     if (!res.ok) throw new Error(`${data.message} {${res.status}}`);

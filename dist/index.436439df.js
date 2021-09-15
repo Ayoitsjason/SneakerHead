@@ -459,13 +459,20 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _modelJs = require("./model.js");
 var _shoesViewJs = require("./views/shoesView.js");
 var _shoesViewJsDefault = parcelHelpers.interopDefault(_shoesViewJs);
+var _shoeViewJs = require("./views/shoeView.js");
+var _shoeViewJsDefault = parcelHelpers.interopDefault(_shoeViewJs);
 var _stable = require("core-js/stable");
 var _runtime = require("regenerator-runtime/runtime");
 var _regeneratorRuntime = require("regenerator-runtime");
+const rootElement = document.documentElement;
+const date = new Date().getFullYear;
 const arrowUp = document.querySelector(".arrow-up");
 const btnFilter = document.querySelector(".btn-filter");
 const year = document.getElementById("year");
-const rootElement = document.documentElement;
+const shoeCards = document.querySelector(".shoe-card__items");
+const shoeSelectedContainer = document.querySelector(".shoe-selected__container");
+const overlay = document.querySelector(".overlay");
+const btnExitShoeSelectedContainer = document.querySelector(".shoe-selected__container-exit");
 const showShoes = async function() {
     // 1) Loading shoe
     await _modelJs.loadShoes(100);
@@ -473,6 +480,12 @@ const showShoes = async function() {
     _modelJs.state.shoes.map((shoe)=>{
         _shoesViewJsDefault.default.render(shoe);
     });
+};
+const showShoe = async function(id) {
+    // 1) Loading Data
+    await _modelJs.loadShoe(id);
+    // 2) Rendering Data
+    _shoeViewJsDefault.default.render(_modelJs.state.shoe);
 };
 const filterShoesByYear = async function(year1, limit) {
     // 1) Filer Shoes
@@ -482,22 +495,44 @@ const filterShoesByYear = async function(year1, limit) {
         _shoesViewJsDefault.default.render(shoe);
     });
 };
+const clear = function(element) {
+    element.innerHTML = "";
+};
+// function getYPosition() {
+//   var top = window.pageYOffset || document.documentElement.scrollTop;
+//   return top;
+// }
+// window.addEventListener("scroll", function () {
+//   console.log(getYPosition());
+// });
 const init = function() {
+    showShoes(100);
+    _shoeViewJsDefault.default.addHandler(showShoe);
+    overlay.addEventListener("click", function() {
+        shoeSelectedContainer.classList.add("hidden");
+        overlay.classList.add("hidden");
+    });
+    btnFilter.addEventListener("click", function() {
+        if (year.value < date && year.value > 1985) {
+            clear(shoeCards);
+            filterShoesByYear(year.value, 100);
+        }
+        year.value = "";
+    });
     arrowUp.addEventListener("click", function() {
         rootElement.scrollTo({
             top: 0,
             behavior: "smooth"
         });
     });
-    btnFilter.addEventListener("click", function() {
-        filterShoesByYear(year.value, 100);
-        year.value = "";
+    btnExitShoeSelectedContainer.addEventListener("click", function() {
+        shoeSelectedContainer.classList.add("hidden");
+        overlay.classList.add("hidden");
     });
-    showShoes();
 };
 init();
 
-},{"./model.js":"6Yfb5","./views/shoesView.js":"kRNIF","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","core-js/stable":"eIyVg","regenerator-runtime/runtime":"cH8Iq","regenerator-runtime":"cH8Iq"}],"6Yfb5":[function(require,module,exports) {
+},{"./model.js":"6Yfb5","./views/shoesView.js":"kRNIF","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","core-js/stable":"eIyVg","regenerator-runtime/runtime":"cH8Iq","regenerator-runtime":"cH8Iq","./views/shoeView.js":"5R1n9"}],"6Yfb5":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state
@@ -508,7 +543,7 @@ parcelHelpers.export(exports, "loadShoes", ()=>loadShoes
 );
 parcelHelpers.export(exports, "filterShoesByYear", ()=>filterShoesByYear
 );
-// cdb5c9c4-5304-4a4a-b62a-f1cf128b8f1e
+// 443d1c8c-f2a8-482c-b6e2-52891c48daa3
 var _configJs = require("./config.js");
 const state = {
     shoe: {
@@ -517,16 +552,13 @@ const state = {
 };
 const loadShoe = async function(id) {
     try {
-        const res = await fetch();
-        // `https://the-sneaker-database.p.rapidapi.com/sneakers/${id}`,
-        // {
-        //   method: "GET",
-        //   headers: {
-        //     "x-rapidapi-host": "the-sneaker-database.p.rapidapi.com",
-        //     "x-rapidapi-key":
-        //       "617301673dmsh04fb709ab7b7f74p1c2ff5jsnde2330604c58",
-        //   },
-        // }
+        const res = await fetch(`https://v1-sneakers.p.rapidapi.com/v1/sneakers/${id}`, {
+            method: "GET",
+            headers: {
+                "x-rapidapi-host": "v1-sneakers.p.rapidapi.com",
+                "x-rapidapi-key": "617301673dmsh04fb709ab7b7f74p1c2ff5jsnde2330604c58"
+            }
+        });
         const data = await res.json();
         if (!res.ok) throw new Error(`${data.message} {${res.status}}`);
         const results = data.results[0];
@@ -536,17 +568,16 @@ const loadShoe = async function(id) {
             estimatedMarketValue: results.estimatedMarketValue,
             gender: results.gender,
             id: results.id,
-            image: results.image,
+            image: results.media.imageUrl,
             links: results.links,
             name: results.name,
             releaseDate: results.releaseDate,
             releaseYear: results.releaseYear,
             retailPrice: results.retailPrice,
-            silhouette: results.silhouette,
-            sku: results.sku,
+            title: results.title,
+            sku: results.styleId,
             story: results.story
         };
-        console.log(state.shoes);
     } catch (err) {
         console.error(`${err}!!!`);
     }
@@ -561,12 +592,8 @@ const loadShoes = async function(limit) {
             }
         });
         const data = await res.json();
-        console.log(data);
         if (!res.ok) throw new Error(`${data.message} {${res.status}}`);
-        // console.log(data.results);
         state.shoes = data.results;
-    // console.log(state.shoes);
-    // console.log(state.shoes[0].media);
     } catch (err) {
         console.error(`${err}!!!`);
     }
@@ -581,12 +608,8 @@ const filterShoesByYear = async function(year, limit) {
             }
         });
         const data = await res.json();
-        console.log(data);
         if (!res.ok) throw new Error(`${data.message} {${res.status}}`);
-        // console.log(data.results);
         state.shoes = data.results;
-    // console.log(state.shoes);
-    // console.log(state.shoes[0].media);
     } catch (err) {
         console.error(`${err}!!!`);
     }
@@ -646,7 +669,9 @@ class ShoesView {
         this._parent.insertAdjacentHTML("beforeend", markup);
     }
     _generateMarkup() {
-        return `\n      <div class="shoe-card__item">\n        <h4 class="shoe-card__item-title">${this._data.shoe} "${this._data.name}"</h4>\n        <h6 class="shoe-card__item-price">$${this._data.retailPrice}</h6>\n        <img\n          src="${this._data.media.imageUrl === null ? "/questionMark.b752a859.png" : this._data.media.imageUrl}"\n          alt="Jordan shoe"\n          width="310"\n          height="250"\n        />\n        <h6 class="shoe-card__item-est-price">Est. Market Value: ${this._data.estimatedMarketValue}</h6>\n      </div>\n    `;
+        return `\n      <div class="shoe-card__item" data-id="${this._data.id}">\n        <h4 class="shoe-card__item-title">${this._data.shoe} "${this._data.name}"</h4>\n        <h6 class="shoe-card__item-price">$${this._data.retailPrice}</h6>\n        <img\n          src="${this._data.media.imageUrl === null ? "/questionMark.b752a859.png" : this._data.media.imageUrl}"\n          alt="Jordan shoe"\n          width="310"\n          height="250"\n        />\n        <h6 class="shoe-card__item-est-price">Est. Market Value: ${this._data.estimatedMarketValue}: N/A</h6>\n      </div>\n    `;
+    }
+    addHandler(handler) {
     }
 }
 exports.default = new ShoesView();
@@ -13017,6 +13042,41 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}]},["drOo7","jKMjS"], "jKMjS", "parcelRequire77ae")
+},{}],"5R1n9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+const shoeSelectedContainer = document.querySelector(".shoe-selected__container");
+const overlay = document.querySelector(".overlay");
+class ShoeView {
+    _parent = document.querySelector(".shoe-selected__container-card");
+    _data;
+    render(data) {
+        this._data = data;
+        this._clear(this._parent);
+        const markup = this._generateMarkup();
+        this._parent.insertAdjacentHTML("beforeend", markup);
+    }
+    _clear(element) {
+        element.innerHTML = "";
+    }
+    _generateMarkup() {
+        return `\n        <div class="shoe-selected__title">\n          <h4>${this._data.title}"</h4>\n        </div>\n      \n        <div class="shoe-selected__img">\n          <img\n            src="${this._data.image === null ? "/questionMark.b752a859.png" : this._data.image}"\n            alt="Jordan shoe"\n            width="310"\n            height="250"\n          />\n        </div>\n      \n        <div class="shoe-selected__information">\n          <section class="shoe-selected__info-container">\n            <h6>Info</h6>\n            <div class="shoe-selected__info">\n              <ul>\n                <p>${this._data.sku}</p>\n                <li>sku</li>\n                <p>${this._data.brand}</p>\n                <li>brand</li>\n                <p>${this._data.gender}</p>\n                <li>gender</li>\n                <p>${this._data.colorway}</p>\n                <li>colorway</li>\n                <p>${this._data.releaseDate}</p>\n                <li>release date</li>\n              </ul>\n            </div>\n          </section>\n          <section class="shoe-selected__price-container">\n            <h6>Price</h6>\n            <div class="shoe-selected__price">\n              <ul>\n                <p>${this._data.retailPrice}</p>\n                <li>retail price</li>\n                <p>N/A</p>\n                <li>Est. market value</li>\n              </ul>\n            </div>\n          </section>\n          <section class="shoe-selected__shop-container">\n            <h6>Shop</h6>\n            <div class="shoe-selected__shop">\n              <a href="#"><p>Buy from StockX</p></a>\n              <a href="#"><p>Buy from Goat</p></a>\n              <a href="#"><p>Buy from Flight Club</p></a>\n            </div>\n          </section>\n        </div>\n      `;
+    }
+    addHandler(handler) {
+        const shoeCards = document.querySelector(".shoe-card__items");
+        shoeCards.addEventListener("click", function(e) {
+            const shoeCard = e.target.closest("div");
+            const shoeCardId = shoeCard.getAttribute("data-id");
+            if (shoeCardId !== null) {
+                handler(shoeCardId);
+                if (shoeSelectedContainer.classList.contains("hidden")) shoeSelectedContainer.classList.remove("hidden");
+                if (overlay.classList.contains("hidden")) overlay.classList.remove("hidden");
+            }
+        });
+    }
+}
+exports.default = new ShoeView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}]},["drOo7","jKMjS"], "jKMjS", "parcelRequire77ae")
 
 //# sourceMappingURL=index.436439df.js.map

@@ -17,6 +17,16 @@ html {
   width: 100%;
 }
 
+.overlay {
+  display: block;
+  background-color: black;
+  opacity: 0.5;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 3;
+}
+
 .header-container {
   z-index: 1;
   position: fixed;
@@ -45,18 +55,152 @@ html {
   width: 100%;
 }
 
-.shoe-container {
-  display: none;
+.shoe-selected__container {
+  display: block;
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 60%;
-  height: 75%;
-  border: 1px solid red;
+  width: 30rem;
+  height: 35rem;
+  border: 1px solid grey;
   border-radius: 4px;
   background-color: white;
-  z-index: 3;
+  z-index: 4;
+  overflow-y: auto;
+}
+
+.shoe-selected__container-exit {
+  position: absolute;
+  top: 2.5%;
+  right: 2.5%;
+  border: none;
+  box-shadow: none;
+  font-size: 1.3rem;
+  font-weight: lighter;
+}
+
+.shoe-selected__title {
+  font-weight: normal;
+  padding: 1rem 1rem 0.5rem 1rem;
+  min-width: 100%;
+  border-bottom: 0.05px solid gray;
+}
+
+.shoe-selected__img {
+  display: flex;
+  flex-wrap: nowrap;
+  min-width: 100%;
+  padding: 0.5rem 0 1rem 1rem;
+}
+
+.shoe-selected__information {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: repeat(2, 50%);
+  grid-template-areas:
+    "info price"
+    "info shop";
+}
+
+/* INFO CONTAINER */
+.shoe-selected__info-container {
+  grid-area: info;
+  padding: 0.5rem;
+  position: relative;
+}
+
+.shoe-selected__info-container h6 {
+  height: 1.5rem;
+  position: absolute;
+  font-weight: lighter;
+}
+
+.shoe-selected__info {
+  border-top: 0.05px solid gray;
+  width: 100%;
+  height: 100%;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.shoe-selected__info ul {
+  padding: 0 0 0 0.5rem;
+}
+
+.shoe-selected__info li {
+  font-weight: lighter;
+  list-style: none;
+  padding: 0 0 2rem 0;
+}
+
+.shoe-selected__info p {
+  margin: 0;
+}
+
+/* PRICE CONTAINER */
+.shoe-selected__price-container {
+  grid-area: price;
+  padding: 0.5rem;
+  position: relative;
+}
+
+.shoe-selected__price-container h6 {
+  height: 1.5rem;
+  position: absolute;
+  font-weight: lighter;
+}
+
+.shoe-selected__price {
+  border-top: 0.05px solid gray;
+  width: 100%;
+  height: 100%;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.shoe-selected__price ul {
+  padding: 0 0 0 0.5rem;
+}
+
+.shoe-selected__price li {
+  font-weight: lighter;
+  list-style: none;
+  padding: 0 0 2rem 0;
+}
+
+.shoe-selected__price p {
+  margin: 0;
+}
+
+/* SHOP CONTAINER */
+.shoe-selected__shop-container {
+  grid-area: shop;
+  padding: 0.5rem;
+  position: relative;
+}
+
+.shoe-selected__shop-container h6 {
+  height: 1.5rem;
+  position: absolute;
+  font-weight: lighter;
+}
+
+.shoe-selected__shop {
+  border-top: 0.05px solid gray;
+  height: 100%;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.shoe-selected__shop a {
+  text-decoration: none;
+  color: black;
+}
+.shoe-selected__shop p {
+  margin: 1rem 0;
 }
 
 .main-container {
@@ -187,4 +331,10 @@ html {
   left: 2rem;
   color: red;
   font-size: 1.5rem;
+}
+
+/* UNIVERSAL */
+
+.hidden {
+  display: none;
 }

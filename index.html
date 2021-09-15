@@ -20,16 +20,72 @@
 
     <title>Hello, world!</title>
   </head>
+
   <body class="body-container">
+    <div class="overlay hidden"></div>
     <header class="header-container">
       <nav class="nav-container">
         <h1>SneakerHead</h1>
       </nav>
     </header>
+
     <div id="top" class="splash-container"></div>
-    <div class="shoe-container">
-      <div class="shoe-container__selected"></div>
+
+    <div class="shoe-selected__container hidden">
+      <button class="shoe-selected__container-exit">X</button>
+      <div class="shoe-selected__container-card">
+        <!-- <div class="shoe-selected__title">
+          <h4>Jordan 1 "Blues"</h4>
+        </div>
+        <div class="shoe-selected__img">
+          <img
+            src="./src/img/jordan_blue.jpg"
+            alt="Jordan shoe"
+            width="310"
+            height="250"
+          />
+        </div>
+        <div class="shoe-selected__information">
+          <section class="shoe-selected__info-container">
+            <h6>Info</h6>
+            <div class="shoe-selected__info">
+              <ul>
+                <p>holder</p>
+                <li>sku</li>
+                <p>holder</p>
+                <li>brand</li>
+                <p>holder</p>
+                <li>gender</li>
+                <p>holder</p>
+                <li>colorway</li>
+                <p>holder</p>
+                <li>release date</li>
+              </ul>
+            </div>
+          </section>
+          <section class="shoe-selected__price-container">
+            <h6>Price</h6>
+            <div class="shoe-selected__price">
+              <ul>
+                <p>holder</p>
+                <li>retail price</li>
+                <p>holder</p>
+                <li>est. market value</li>
+              </ul>
+            </div>
+          </section>
+          <section class="shoe-selected__shop-container">
+            <h6>Shop</h6>
+            <div class="shoe-selected__shop">
+              <a href="#"><p>Buy from StockX</p></a>
+              <a href="#"><p>Buy from Goat</p></a>
+              <a href="#"><p>Buy from Flight Club</p></a>
+            </div>
+          </section>
+        </div> -->
+      </div>
     </div>
+
     <main class="main-container">
       <div class="filter-container">
         <h1>Jordans</h1>
@@ -42,7 +98,84 @@
       </div>
       <div class="shoe-card__container">
         <div class="shoe-card__items">
-          <!-- <div class="shoe-card__item">
+          <!-- <div class="shoe-card__item" data-id="1234">
+            <h4 class="shoe-card__item-title">Jordan 1 "Blues"</h4>
+            <h6 class="shoe-card__item-price">$140</h6>
+            <img
+              src="./src/img/jordan_blue.jpg"
+              alt="Jordan shoe"
+              width="310"
+              height="250"
+            />
+            <h6 class="shoe-card__item-est-price">Est. Market Value</h6>
+          </div>
+          <div class="shoe-card__item" data-id="1234">
+            <h4 class="shoe-card__item-title">Jordan 1 "Blues"</h4>
+            <h6 class="shoe-card__item-price">$140</h6>
+            <img
+              src="./src/img/jordan_blue.jpg"
+              alt="Jordan shoe"
+              width="310"
+              height="250"
+            />
+            <h6 class="shoe-card__item-est-price">Est. Market Value</h6>
+          </div>
+          <div class="shoe-card__item" data-id="1234">
+            <h4 class="shoe-card__item-title">Jordan 1 "Blues"</h4>
+            <h6 class="shoe-card__item-price">$140</h6>
+            <img
+              src="./src/img/jordan_blue.jpg"
+              alt="Jordan shoe"
+              width="310"
+              height="250"
+            />
+            <h6 class="shoe-card__item-est-price">Est. Market Value</h6>
+          </div>
+          <div class="shoe-card__item" data-id="1234">
+            <h4 class="shoe-card__item-title">Jordan 1 "Blues"</h4>
+            <h6 class="shoe-card__item-price">$140</h6>
+            <img
+              src="./src/img/jordan_blue.jpg"
+              alt="Jordan shoe"
+              width="310"
+              height="250"
+            />
+            <h6 class="shoe-card__item-est-price">Est. Market Value</h6>
+          </div>
+          <div class="shoe-card__item" data-id="1234">
+            <h4 class="shoe-card__item-title">Jordan 1 "Blues"</h4>
+            <h6 class="shoe-card__item-price">$140</h6>
+            <img
+              src="./src/img/jordan_blue.jpg"
+              alt="Jordan shoe"
+              width="310"
+              height="250"
+            />
+            <h6 class="shoe-card__item-est-price">Est. Market Value</h6>
+          </div>
+          <div class="shoe-card__item" data-id="1234">
+            <h4 class="shoe-card__item-title">Jordan 1 "Blues"</h4>
+            <h6 class="shoe-card__item-price">$140</h6>
+            <img
+              src="./src/img/jordan_blue.jpg"
+              alt="Jordan shoe"
+              width="310"
+              height="250"
+            />
+            <h6 class="shoe-card__item-est-price">Est. Market Value</h6>
+          </div>
+          <div class="shoe-card__item" data-id="1234">
+            <h4 class="shoe-card__item-title">Jordan 1 "Blues"</h4>
+            <h6 class="shoe-card__item-price">$140</h6>
+            <img
+              src="./src/img/jordan_blue.jpg"
+              alt="Jordan shoe"
+              width="310"
+              height="250"
+            />
+            <h6 class="shoe-card__item-est-price">Est. Market Value</h6>
+          </div>
+          <div class="shoe-card__item" data-id="1234">
             <h4 class="shoe-card__item-title">Jordan 1 "Blues"</h4>
             <h6 class="shoe-card__item-price">$140</h6>
             <img
@@ -56,6 +189,7 @@
         </div>
       </div>
     </main>
+
     <div class="arrow-container">
       <button class="btn btn-secondary arrow-up" goTo="top">
         <svg
@@ -73,9 +207,11 @@
         </svg>
       </button>
     </div>
+
     <footer class="footer-container">
       <h1>SneakerHead</h1>
     </footer>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"

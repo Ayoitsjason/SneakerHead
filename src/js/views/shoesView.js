@@ -10,7 +10,7 @@ class ShoesView {
 
   _generateMarkup() {
     return `
-      <div class="shoe-card__item">
+      <div class="shoe-card__item" data-id="${this._data.id}">
         <h4 class="shoe-card__item-title">${this._data.shoe} "${
       this._data.name
     }"</h4>
@@ -27,10 +27,12 @@ class ShoesView {
         />
         <h6 class="shoe-card__item-est-price">Est. Market Value: ${
           this._data.estimatedMarketValue
-        }</h6>
+        }: N/A</h6>
       </div>
     `;
   }
+
+  addHandler(handler) {}
 }
 
 export default new ShoesView();

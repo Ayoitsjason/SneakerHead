@@ -473,23 +473,34 @@ const shoeCards = document.querySelector(".shoe-card__items");
 const shoeSelectedContainer = document.querySelector(".shoe-selected__container");
 const overlay = document.querySelector(".overlay");
 const btnExitShoeSelectedContainer = document.querySelector(".shoe-selected__container-exit");
+const spinner = document.querySelector(".spinner");
+const renderSpinner = (parent)=>{
+    const markup = `\n    <div class="loading"></div>\n  `;
+    parent.insertAdjacentHTML("afterbegin", markup);
+};
 const showShoes = async function() {
+    renderSpinner(spinner);
     // 1) Loading shoe
     await _modelJs.loadShoes(100);
+    spinner.innerHTML = "";
     // 2) Rendering Shoe
     _modelJs.state.shoes.map((shoe)=>{
         _shoesViewJsDefault.default.render(shoe);
     });
 };
 const showShoe = async function(id) {
+    renderSpinner(spinner);
     // 1) Loading Data
     await _modelJs.loadShoe(id);
+    spinner.innerHTML = "";
     // 2) Rendering Data
     _shoeViewJsDefault.default.render(_modelJs.state.shoe);
 };
 const filterShoesByYear = async function(year1, limit) {
+    renderSpinner(spinner);
     // 1) Filer Shoes
     await _modelJs.filterShoesByYear(year1, limit);
+    spinner.innerHTML = "";
     // 2) Rendering Shoe
     _modelJs.state.shoes.map((shoe)=>{
         _shoesViewJsDefault.default.render(shoe);

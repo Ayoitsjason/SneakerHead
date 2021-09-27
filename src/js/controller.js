@@ -19,11 +19,21 @@ const overlay = document.querySelector(".overlay");
 const btnExitShoeSelectedContainer = document.querySelector(
   ".shoe-selected__container-exit"
 );
+const spinner = document.querySelector(".spinner");
+
+const renderSpinner = (parent) => {
+  const markup = `
+    <div class="loading"></div>
+  `;
+
+  parent.insertAdjacentHTML("afterbegin", markup);
+};
 
 const showShoes = async function () {
+  renderSpinner(spinner);
   // 1) Loading shoe
   await model.loadShoes(100);
-
+  spinner.innerHTML = "";
   // 2) Rendering Shoe
   model.state.shoes.map((shoe) => {
     ShoesView.render(shoe);
@@ -31,15 +41,19 @@ const showShoes = async function () {
 };
 
 const showShoe = async function (id) {
+  renderSpinner(spinner);
   // 1) Loading Data
   await model.loadShoe(id);
+  spinner.innerHTML = "";
   // 2) Rendering Data
   ShoeView.render(model.state.shoe);
 };
 
 const filterShoesByYear = async function (year, limit) {
+  renderSpinner(spinner);
   // 1) Filer Shoes
   await model.filterShoesByYear(year, limit);
+  spinner.innerHTML = "";
 
   // 2) Rendering Shoe
   model.state.shoes.map((shoe) => {
